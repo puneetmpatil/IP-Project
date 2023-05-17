@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %} About Us{% endblock %}
+{% block content %}
+<!-- About Us Section -->
+<section class="bg-gray-100 py-16 h-[90vh]">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold text-center mb-16">About Us</h1>
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+            <div class="md:w-1/2 md:flex md:items-center md:justify-center">
+                <img src="/static/assets/dummy.png" alt="Text Editing Company" class="rounded-lg shadow-lg">
+            </div>
+            <div class="md:w-1/2">
+                <p class="text-lg text-gray-700">
+                    At Text Editing Company, we are passionate about helping you enhance your written content to
+                    make it clear,
+                    concise, and impactful. With our team of expert editors, we provide professional editing
+                    services tailored to
+                    your specific needs. Whether it's proofreading, copyediting, or content editing, we have the
+                    expertise to
+                    polish your text and make it shine.
+                </p>
+                <p class="text-lg text-gray-700 mt-4">
+                    Our mission is to ensure that your written communication leaves a lasting impression. We
+                    understand the power
+                    of words, and we are committed to helping you deliver your message effectively. With our
+                    attention to detail,
+                    language proficiency, and deep understanding of various industries, we strive to exceed your
+                    expectations and
+                    deliver exceptional editing services.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
