@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request,flash
 
 features = Blueprint("features", __name__)
 
@@ -28,8 +28,17 @@ def image_coloring():
     return render_template("imageColoring.html")
 
 # ! EXTRA FEATURES NOT NECCESSARY
-@features.route("/text-to-image")
+
+
+@features.route("/text-to-image", methods=["GET", "POST"])
 def text_to_image():
+    if request.method == "POST":
+        prompt = request.form.get("prompt")
+        if prompt:
+            print(prompt)
+        else:
+            flash("No prompt given !!!",category='error')
+
     return render_template("textToImage.html")
 
 
