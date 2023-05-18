@@ -1,4 +1,22 @@
 {% extends "base.html" %}
 {% block title %} Convert your images to different formats{% endblock %}
 {% block content %}
+<section class="w-4/5 mx-auto mt-8">
+    <h1 class="font-bold text-4xl tracking-wider text-center uppercase">Convert your images to different formats</h1>
+    <article class="mt-8 md:mt-16">
+        <h3 class="font-bold text-xl">Why conversion to different image file formats necessary?</h3>
+        <ul class="text-sm list-disc px-6"><li>Different image file formats are supported by different devices and applications.</li>
+        <li>Different image file formats use different compression techniques, which can result in smaller file sizes.</li><li>
+        Different image file formats support different levels of image quality.</li>
+    </article>
+    <form method="post" class="mt-8">
+        <div class="flex-col flex">
+            <label class="text-2xl font-bold mb-4" for="image">
+                Upload your image
+            </label>
+            <input name="image" id="image" type="file">
+        </div>
+        <!-- IMPLEMENT DROPDOWN HERE -->
+    </form>
+</section>
 {% endblock %}

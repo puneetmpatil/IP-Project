@@ -1,4 +1,19 @@
 {% extends "base.html" %}
 {% block title %} Image Enhancement {% endblock %}
 {% block content %}
+<section class="w-4/5 mx-auto mt-8">
+    <h1 class="font-bold text-4xl tracking-wider text-center uppercase">Image Enhancement</h1>
+    <article class="mt-8 md:mt-16">
+        <h3 class="font-bold text-xl">Why is image enhancement important?</h3>
+        <p class="text-sm">Image enhancement is the process of improving the quality of an image, making it easier to see and understand. It can be used for a variety of purposes, including medical imaging, astronomy, photography, and web design. Some common methods of image enhancement include contrast enhancement, brightness enhancement, noise reduction, sharpening, and color correction.</p>
+    </article>
+    <form method="post" class="mt-8">
+        <div class="flex-col flex">
+            <label class="text-2xl font-bold mb-4" for="image">
+                Upload your image
+            </label>
+            <input name="image" id="image" type="file">
+        </div>
+    </form>
+</section>
 {% endblock %}

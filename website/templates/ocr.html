@@ -1,4 +1,46 @@
 {% extends "base.html" %}
 {% block title %} Optical Character Recognition{% endblock %}
 {% block content %}
+<section class="w-4/5 mx-auto mt-8">
+    <h1 class="font-bold text-4xl tracking-wider text-center uppercase">Optical Character Recognition</h1>
+    <!-- <article class="mt-8 md:mt-16">
+        <h3 class="font-bold text-xl">Why is OCR important?</h3>
+        <p class="text-sm">OCR technology solves the problem by converting text images into text data that can be
+            analyzed by other business software. You can then use the data to conduct analytics, streamline operations,
+            automate processes, and improve productivity.</p>
+    </article> -->
+    <article class="my-8 md:mt-16">
+        <h3 class="font-bold text-xl">How does OCR work?</h3>
+        <p class="text-sm font-bold mt-4">The following steps are involved in OCR:</p>
+        <ol class="text-sm list-decimal px-4">
+            <li class="mt-2"><span class="font-bold">Image Acquisition</span>: The source document or image is scanned
+                or captured using a digital camera or
+                scanner, converting it into a digital image.</li>
+            <li class="mt-2"><span class="font-bold">Preprocessing</span>: The OCR software performs various operations
+                to enhance the image quality and remove any
+                noise or artifacts. This may include deskewing (correcting tilted images), despeckling (removing small
+                dots or imperfections), and enhancing contrast and brightness.</li>
+            <li class="mt-2"><span class="font-bold">Text Recognition</span>: The OCR engine analyzes the processed
+                image to recognize and interpret the text within
+                it. There are two main approaches used for text recognition ( Pattern Matching & Feature Extraction)
+            <li class="mt-2"><span class="font-bold">Postprocessing</span>: Once the text has been recognized, the OCR
+                software performs additional processing to
+                refine the extracted text. This may include spell-checking, error correction, and formatting
+                adjustments.</li>
+
+            <li class="mt-2"><span class="font-bold">Output</span>: The final output of the OCR process is the extracted
+                text, which can be saved as a searchable
+                and editable document format such as PDF, Word, or plain text. Some OCR systems also provide options to
+                preserve the original layout and formatting of the source document.</li>
+        </ol>
+    </article>
+    <form method="post" class="mt-8">
+        <div class="flex-col flex">
+            <label class="text-2xl font-bold mb-4" for="image">
+                Upload your image
+            </label>
+            <input name="image" id="image" type="file">
+        </div>
+    </form>
+</section>
 {% endblock %}

@@ -1,4 +1,23 @@
 {% extends "base.html" %}
 {% block title %} Compression {% endblock %}
 {% block content %}
+<section class="w-4/5 mx-auto mt-8">
+    <h1 class="font-bold text-4xl tracking-wider text-center uppercase">Image Compression</h1>
+    <article class="mt-8 md:mt-16">
+        <h3 class="font-bold text-xl">Why would you want to compress images?</h3>
+        <p class="text-sm">Depending on the source of an image, the file could be quite large. A JPG from a professional
+            DSLR camera, for example, could be dozens of megabytes. Depending on your needs, this could be too big.
+            Compressing this image would be very useful. Likewise, you might have large images on your phone. These
+            images could be taking up a lot of hard drive space and preventing you from taking more photos. Compressing
+            them could free up more internal storage, fixing this problem.</p>
+    </article>
+    <form method="post" class="mt-8">
+        <div class="flex-col flex">
+            <label class="text-2xl font-bold mb-4" for="image">
+                Upload your image
+            </label>
+            <input name="image" id="image" type="file">
+        </div>
+    </form>
+</section>
 {% endblock %}
