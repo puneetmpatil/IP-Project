@@ -1,38 +1,38 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 features = Blueprint("features", __name__)
 
 # CAYMANN
 @features.route("/ocr")
 def ocr():
-    return "OCR"
+    return render_template("ocr.html")
 
 # CAYMANN
 @features.route("/conversion")
 def conversion():
-    return "Conversion"
+    return render_template("conversion.html")
 
 # PUNEET
 @features.route("/image-resizing")
 def image_resizing():
-    return "Image Resizing"
+    return render_template("imageResizing.html")
 
 # PUNEET
 @features.route("/image-compression")
 def image_compression():
-    return "Image Compression"
+    return render_template("compression.html")
 
 # PUNEET
 @features.route("/image-coloring")
 def image_coloring():
-    return "Image Coloring"
+    return render_template("imageColoring.html")
 
 # ! EXTRA FEATURES NOT NECCESSARY
 @features.route("/text-to-image")
 def text_to_image():
-    return "Text to Image"
+    return render_template("textToImage.html")
 
 
 @features.route("/image-enhancement")
 def image_enhancement():
-    return "Image Enhancement"
+    return render_template("imageEnhancement.html")
