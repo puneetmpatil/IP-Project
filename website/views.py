@@ -78,6 +78,11 @@ def services():
             "title": "Image Enhancement",
             "description": "Insert text and captions to personalize your images.",
             "link": "services/image-enhancement"
+        },
+        {
+            "title": "Remove Background",
+            "description": "Insert text and captions to personalize your images.",
+            "link": "services/remove-background"
         }
     ]
     return render_template("services.html", services=services)

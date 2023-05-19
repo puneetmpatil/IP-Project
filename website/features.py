@@ -1,14 +1,12 @@
 from werkzeug.utils import secure_filename
 import os
-from .utility import allowed_file, create_image,compress_image
+from .utility import allowed_file, create_image,compress_image,enhance_image, remove_bg
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 features = Blueprint("features", __name__)
 
 UPLOAD_FOLDER = "website/static/uploads"
 
 # CAYMANN
-
-
 @features.route("/ocr", methods=['GET', 'POST'])
 def ocr():
     if request.method == "POST":
@@ -85,7 +83,7 @@ def image_resizing():
             flash("Invalid file format", category="error")
     return render_template("imageResizing.html")
 
-# PUNEET
+# ! DONE
 @features.route("/image-compression", methods=['GET', 'POST'])
 def image_compression():
     if request.method == "POST":
@@ -105,7 +103,7 @@ def image_compression():
 
             # Perform image compression
             newFileName = compress_image(filename)
-            flash(f"Your image has been processed and is available at <a href='/static/{newFileName}' target='_blank'>here</a>", category="success")
+            flash(f"Your image has been processed and is available at <a href='/static/{newFileName}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
 
             return redirect(url_for('features.image_compression', filename=filename))
@@ -141,8 +139,6 @@ def image_coloring():
     return render_template("imageColoring.html")
 
 # ! EXTRA FEATURES NOT NECCESSARY
-
-
 @features.route("/text-to-image", methods=["GET", "POST"])
 def text_to_image():
     if request.method == "POST":
@@ -156,6 +152,7 @@ def text_to_image():
     return render_template("textToImage.html")
 
 
+# ? Increase resolution of low quality images w/o losing quality
 @features.route("/image-enhancement", methods=['GET', 'POST'])
 def image_enhancement():
     if request.method == "POST":
@@ -173,10 +170,42 @@ def image_enhancement():
             file.save(f"{UPLOAD_FOLDER}/enhancement/{filename}")
             flash("File uploaded successfully", category="success")
 
-            # Perform image compression
+            # Perform image enhancement
+            newFileName = enhance_image(filename)
+            flash(f"Your image has been processed and is available at <a href='/static/{newFileName}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
 
             return redirect(url_for('features.image_enhancement', filename=filename))
         else:
             flash("Invalid file format", category="error")
     return render_template("imageEnhancement.html")
+
+
+# ! DONE
+# ? Remove background from images
+@features.route('/remove-background',methods=['POST','GET'])
+def remove_background():
+    if request.method == "POST":
+        if 'file' not in request.files:
+            flash("No file part", category="error")
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an empty file without a filename.
+        if file.filename == '':
+            flash('No selected file', category="error")
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(f"{UPLOAD_FOLDER}/backgroundRemover/{filename}")
+            flash("File uploaded successfully", category="success")
+
+            # Remove background
+            newFileName = remove_bg(filename)
+            flash(f"Your image has been processed and is available at <a href='/static/{newFileName}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
+
+            return redirect(url_for('features.image_enhancement', filename=filename))
+        else:
+            flash("Invalid file format", category="error")
+            
+
+    return render_template("removeBackground.html")

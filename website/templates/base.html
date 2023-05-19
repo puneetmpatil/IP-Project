@@ -76,11 +76,11 @@
     {% for category, message in messages %}
     <div class="mx-auto w-4/5 mt-6">
         {% if category == 'error' %}
-        <div class="text-red-500 text-xl font-bold bg-red-100 mt-6 py-3 px-8 rounded-lg text-center" role="alert" id="alert">
+        <div class="text-white text-xl font-bold bg-red-100 mt-6 py-3 px-8 rounded-lg text-center" role="alert" id="alert">
             {{ message }}
         </div>
         {% else %}
-        <div class="text-green-500 text-xl font-bold bg-green-300 mt-6 py-3 px-8 rounded-lg text-center" role="alert" id="alert">
+        <div class="text-white text-xl font-bold bg-green-300 mt-6 py-3 px-8 rounded-lg text-center" role="alert" id="alert">
             {{ message | safe }}
         </div>
     </div>

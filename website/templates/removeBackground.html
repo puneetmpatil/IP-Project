@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} Remove Background {% endblock %}
+{% block content %}
+<section class="w-4/5 mx-auto mt-8">
+    <h1 class="font-bold text-4xl tracking-wider text-center uppercase">Remove Background</h1>
+    <article class="mt-8 md:mt-16">
+        <h3 class="font-bold text-xl">Why would you want to compress images?</h3>
+        <p class="text-sm">Depending on the source of an image, the file could be quite large. A JPG from a professional
+            DSLR camera, for example, could be dozens of megabytes. Depending on your needs, this could be too big.
+            Compressing this image would be very useful. Likewise, you might have large images on your phone. These
+            images could be taking up a lot of hard drive space and preventing you from taking more photos. Compressing
+            them could free up more internal storage, fixing this problem.</p>
+    </article>
+    <form method="post" class="mt-8" enctype="multipart/form-data">
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+        <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" name="file">
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+        <div class="flex justify-center">
+            <button type="submit" class="w-fit px-4 py-2 border border-orange-500 hover:bg-orange-500 hover:text-white uppercase mt-4 tracking-wider hover:scale-110 rounded-lg">Upload</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
