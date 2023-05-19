@@ -1,8 +1,7 @@
 from werkzeug.utils import secure_filename
 import os
-from .utility import allowed_file
+from .utility import allowed_file, create_image,compress_image
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-# from .textToImage import create_image
 features = Blueprint("features", __name__)
 
 UPLOAD_FOLDER = "website/static/uploads"
@@ -101,10 +100,12 @@ def image_compression():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(f"{UPLOAD_FOLDER}/compression/{filename}")
             flash("File uploaded successfully", category="success")
+            file.save(f"{UPLOAD_FOLDER}/compression/{filename}")
 
             # Perform image compression
+            newFileName = compress_image(filename)
+            flash(f"Your image has been processed and is available at <a href='/static/{newFileName}' target='_blank'>here</a>", category="success")
 
 
             return redirect(url_for('features.image_compression', filename=filename))
@@ -147,8 +148,7 @@ def text_to_image():
     if request.method == "POST":
         prompt = request.form.get("prompt")
         if prompt:
-            pass
-            # image = create_image(prompt)
+            create_image(prompt)
             # image.save(f"{prompt}.png")
         else:
             flash("No prompt given !!!", category='error')

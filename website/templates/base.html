@@ -81,7 +81,7 @@
         </div>
         {% else %}
         <div class="text-green-500 text-xl font-bold bg-green-300 mt-6 py-3 px-8 rounded-lg text-center" role="alert" id="alert">
-            {{ message }}
+            {{ message | safe }}
         </div>
     </div>
     {% endif %}
