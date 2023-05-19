@@ -5,6 +5,8 @@ def create_app():
     app = Flask(__name__)
     app.config["MONGO_URI"] = "mongodb://localhost:27017/test"
     app.config["SECRET_KEY"] = "test"
+    UPLOAD_FOLDER = "/static/uploads"
+    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     db = PyMongo(app).db
 
     from .views import views
