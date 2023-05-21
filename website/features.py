@@ -172,6 +172,10 @@ def text_to_image():
 @features.route("/image-enhancement", methods=['GET', 'POST'])
 def image_enhancement():
     if request.method == "POST":
+        operation = request.form.get('operation')
+        if operation == 'Choose a option':
+            flash("Please choose an option", category="error")
+            return redirect(request.url)
         if 'file' not in request.files:
             flash("No file part", category="error")
             return redirect(request.url)
@@ -187,7 +191,7 @@ def image_enhancement():
             flash("File uploaded successfully", category="success")
 
             # Perform image enhancement
-            newFileName = enhance_image(filename)
+            newFileName = enhance_image(filename,operation)
             flash(f"Your image has been processed and is available at <a href='/static/{newFileName}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
 

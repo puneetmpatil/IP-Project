@@ -5,7 +5,10 @@
     <h1 class="font-bold text-4xl tracking-wider text-center uppercase">Image Enhancement</h1>
     <article class="mt-8 md:mt-16">
         <h3 class="font-bold text-xl">Why is image enhancement important?</h3>
-        <p class="text-sm">Image enhancement is the process of improving the quality of an image, making it easier to see and understand. It can be used for a variety of purposes, including medical imaging, astronomy, photography, and web design. Some common methods of image enhancement include contrast enhancement, brightness enhancement, noise reduction, sharpening, and color correction.</p>
+        <p class="text-sm">Image enhancement is the process of improving the quality of an image, making it easier to
+            see and understand. It can be used for a variety of purposes, including medical imaging, astronomy,
+            photography, and web design. Some common methods of image enhancement include contrast enhancement,
+            brightness enhancement, noise reduction, sharpening, and color correction.</p>
     </article>
     <form method="post" class="mt-8" enctype="multipart/form-data">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
@@ -14,6 +17,30 @@
             aria-describedby="file_input_help" id="file_input" type="file" name="file">
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX.
             800x400px).</p>
+        <div class="mt-3">
+            <label for="dropdown" class="">Choose Style</label><br />
+            <select name="operation" class="py-2 text-sm text-gray-700 dark:text-gray-200 border rounded-xl"
+                id="dropdown" aria-label="dropdown">
+                <option
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center"
+                    selected>Choose a option</option>
+                <option
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center"
+                    value="image_enhancement">Image Enhancement</option>
+                <option
+                    class="lock px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center"
+                    value="cartoon">Cartoon</option>
+                <option
+                    class="lock px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center"
+                    value="water_color">Water color</option>
+                <option
+                    class="lock px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center"
+                    value="pencil_sketch">Pencil sketch</option>
+                <option
+                    class="lock px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center"
+                    value="pencil_color_sketch">Pencil Color Sketch</option>
+            </select>
+        </div>
         <div class="flex justify-center">
             <button type="submit"
                 class="w-fit px-4 py-2 border border-orange-500 hover:bg-orange-500 hover:text-white uppercase mt-4 tracking-wider hover:scale-110 rounded-lg">Upload</button>

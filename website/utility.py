@@ -1,7 +1,6 @@
 import openai
 from PIL import Image, ImageFilter
 from rembg import remove
-import pywhatkit as pw
 import cv2
 import numpy as np
 import os
@@ -21,11 +20,55 @@ def compress_image(filename):
     image.save(f"website/static/{filename[0]}_compressed.{filename[1]}",optimize=True,quality=5)
     return f"{filename[0]}_compressed.{filename[1]}"
 
-def enhance_image(filename):
-    image = Image.open(f"{UPLOAD_FOLDER}/enhancement/{filename}")
+def enhance_image(filename,style):
+    image = cv2.imread(f"{UPLOAD_FOLDER}/enhancement/{filename}")
     filename = filename.split(".")
-    enhance_image = image.filter(ImageFilter.DETAIL)
-    enhance_image.save(f"website/static/{filename[0]}_enhanced.{filename[1]}")
+
+    if style == 'image_enhancement':
+        # ? sigma_s => smoothening parameter, sigma_r => maintains color distinction
+        output = cv2.detailEnhance(image,sigma_s=10,sigma_r = 0.15)
+        cv2.imwrite(f"website/static/{filename[0]}_enhanced.{filename[1]}",output)
+    elif style == 'pencil_color_sketch':
+        # ? Shade factor ranges from 0 to 0.1
+        imout_gray, imout = cv2.pencilSketch(image,sigma_s=60,sigma_r=0.07,shade_factor=0.05)
+        cv2.imwrite(f"website/static/{filename[0]}_enhanced.{filename[1]}",imout)
+    elif style == 'pencil_sketch':
+        # ? Shade factor ranges from 0 to 0.1
+        imout_gray, imout = cv2.pencilSketch(image,sigma_s=60,sigma_r=0.07,shade_factor=0.05)
+        cv2.imwrite(f"website/static/{filename[0]}_enhanced.{filename[1]}",imout_gray)  
+    elif style == 'cartoon':
+        # ? Convert to gray scale
+        gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+
+        # ? Retrieve Edges and highlight them
+        edges = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,9,8)
+
+        # ? Color Quantization
+        data = np.float32(image).reshape((-1,3))    # Defining input data for clustering
+
+        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER,20,1.0)  # Define criteria
+
+        # Applying cv2.kmeans function
+        _,label,center = cv2.kmeans(data,8,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
+        center = np.uint8(center)
+
+        # Reshape the output data to the size of input image
+        result = center[label.flatten()]
+        result = result.reshape(image.shape)
+
+        # ? Smoothing the result => Median Blur
+        result = cv2.medianBlur(result,3)
+
+        # ? Combineresult and edges to get final cartoon effect
+        cartoon = cv2.bitwise_and(result,result,mask=edges)
+        cv2.imwrite(f"website/static/{filename[0]}_enhanced.{filename[1]}",cartoon)
+    elif style == 'water_color':
+        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)  # Convert input image to rgb image
+
+        result = cv2.stylization(image,sigma_s=150,sigma_r=0.25)
+        cv2.imwrite(f"website/static/{filename[0]}_enhanced.{filename[1]}",result)
+    # enhance_image = image.filter(ImageFilter.DETAIL)
+    # enhance_image.save(f"website/static/{filename[0]}_enhanced.{filename[1]}")
 
     return f"{filename[0]}_enhanced.{filename[1]}"
 
@@ -38,9 +81,7 @@ def remove_bg(filename):
     return f"{filename[0]}_remove_bg.{filename[1]}"
 
 def text_to_handwritten(text):
-    filename=text[:5].replace(" ","")
-    pw.text_to_handwriting(text,f"website/static/{filename}_handwritten.png",(0,0,138))
-    return f"{filename}_handwritten.png"
+    pass
 
 
 def resizing(filename,height,width):
