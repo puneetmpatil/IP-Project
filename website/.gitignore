@@ -1,3 +1,6 @@
 main.css
 __pycache__
 OPENAI_API_KEY.txt
+colorization_deploy_v2.prototxt
+colorization_release_v2.caffemodel
+pts_in_hull.npy
