@@ -1,10 +1,10 @@
 from werkzeug.utils import secure_filename
 import os
-from .utility import allowed_file, create_image,compress_image,enhance_image, remove_bg
+from .utility import allowed_file, compress_image,enhance_image, remove_bg, text_to_handwritten, resizing
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 features = Blueprint("features", __name__)
 
-UPLOAD_FOLDER = "website/static/uploads"
+UPLOAD_FOLDER = "website/uploads"
 
 # CAYMANN
 @features.route("/ocr", methods=['GET', 'POST'])
@@ -61,6 +61,14 @@ def conversion():
 @features.route("/image-resizing", methods=['GET', 'POST'])
 def image_resizing():
     if request.method == "POST":
+        width = request.form.get('width')
+        height = request.form.get('height')
+        if not width:
+            flash("Please provide a width")
+        elif not width.isnumeric():
+            flash("Please provide a valid width")
+        if not height:
+            height = width
         if 'file' not in request.files:
             flash("No file part", category="error")
             return redirect(request.url)
@@ -76,7 +84,10 @@ def image_resizing():
             flash("File uploaded successfully", category="success")
 
             # Perform image resizing
-
+            height = int(height)
+            width = int(width)
+            new_filename = resizing(filename = filename,height=height,width=width)
+            flash(f"Your image has been processed and is available at <a href='/static/{new_filename}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
             return redirect(url_for('features.image_resizing', filename=filename))
         else:
@@ -139,17 +150,17 @@ def image_coloring():
     return render_template("imageColoring.html")
 
 # ! EXTRA FEATURES NOT NECCESSARY
-@features.route("/text-to-image", methods=["GET", "POST"])
+@features.route("/text-to-handwritten", methods=["GET", "POST"])
 def text_to_image():
     if request.method == "POST":
         prompt = request.form.get("prompt")
         if prompt:
-            create_image(prompt)
-            # image.save(f"{prompt}.png")
+            filename = text_to_handwritten(prompt)
+            flash(f"Your image has been processed and is available at <a href='/static/{filename}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
         else:
             flash("No prompt given !!!", category='error')
 
-    return render_template("textToImage.html")
+    return render_template("textToHandwritten.html")
 
 
 # ? Increase resolution of low quality images w/o losing quality

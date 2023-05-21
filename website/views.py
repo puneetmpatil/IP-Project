@@ -70,9 +70,9 @@ def services():
             "description": "Convert an image of text into machine-readable text format",
             "link": "services/image-coloring"
         },
-        {"title": "Text to Image",
+        {"title": "Text to Handwriting",
             "description": "Crop and resize your images to the desired dimensions.",
-            "link": "services/text-to-image"
+            "link": "services/text-to-handwritten"
          },
         {
             "title": "Image Enhancement",

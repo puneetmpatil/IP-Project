@@ -1,24 +1,15 @@
 import openai
 from PIL import Image, ImageFilter
 from rembg import remove
+import pywhatkit as pw
 
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg'}
 # openai.api_key = open("OPENAI_API_KEY.txt","r").read()
 # print(openai.api_key)
-UPLOAD_FOLDER = "website/static/uploads"
+UPLOAD_FOLDER = "website/uploads"
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-def create_image(prompt):
-    response = openai.Image.create(
-        prompt = prompt,
-        n = 1,
-        size = '1024x1024'
-    )
-    image = response['data'][0]['url']
-    return image
 
 def compress_image(filename):
     image = Image.open(f"{UPLOAD_FOLDER}/compression/{filename}")
@@ -41,3 +32,17 @@ def remove_bg(filename):
     remove_image.save(f"website/static/{filename[0]}_remove_bg.{filename[1]}")
 
     return f"{filename[0]}_remove_bg.{filename[1]}"
+
+def text_to_handwritten(text):
+    filename=text[:5].replace(" ","")
+    pw.text_to_handwriting(text,f"website/static/{filename}_handwritten.png",(0,0,138))
+    return f"{filename}_handwritten.png"
+
+
+def resizing(filename,height,width):
+    image = Image.open(f"{UPLOAD_FOLDER}/resizing/{filename}")
+    filename = filename.split(".")
+    resize_image = image.resize((height,width))
+    resize_image.save(f"website/static/{filename[0]}_resized.{filename[1]}")
+
+    return f"{filename[0]}_resized.{filename[1]}"
