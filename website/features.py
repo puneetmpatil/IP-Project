@@ -1,6 +1,6 @@
 from werkzeug.utils import secure_filename
 import os
-from .utility import allowed_file, compress_image,enhance_image, remove_bg, text_to_handwritten, resizing
+from .utility import allowed_file, compress_image,enhance_image, remove_bg, text_to_handwritten, resizing,coloring
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 features = Blueprint("features", __name__)
 
@@ -57,7 +57,7 @@ def conversion():
             flash("Invalid file format", category="error")
     return render_template("conversion.html")
 
-# PUNEET
+# ! DONE
 @features.route("/image-resizing", methods=['GET', 'POST'])
 def image_resizing():
     if request.method == "POST":
@@ -127,6 +127,10 @@ def image_compression():
 @features.route("/image-coloring", methods=['GET', 'POST'])
 def image_coloring():
     if request.method == "POST":
+        operation = request.form.get('operation')
+        if operation == 'Choose a option':
+            flash("Please choose an option", category="error")
+            return redirect(request.url)
         if 'file' not in request.files:
             flash("No file part", category="error")
             return redirect(request.url)
@@ -142,7 +146,8 @@ def image_coloring():
             flash("File uploaded successfully", category="success")
 
             # Perform image coloring
-
+            newfilename = coloring(filename,operation)
+            flash(f"Your image has been processed and is available at <a href='/static/{newfilename}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
             return redirect(url_for('features.image_coloring', filename=filename))
         else:

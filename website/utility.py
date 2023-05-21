@@ -2,6 +2,7 @@ import openai
 from PIL import Image, ImageFilter
 from rembg import remove
 import pywhatkit as pw
+import cv2
 
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg'}
 # openai.api_key = open("OPENAI_API_KEY.txt","r").read()
@@ -46,3 +47,17 @@ def resizing(filename,height,width):
     resize_image.save(f"website/static/{filename[0]}_resized.{filename[1]}")
 
     return f"{filename[0]}_resized.{filename[1]}"
+
+def coloring(filename,operation):
+    filename = filename.split(".")
+    if operation == 'binary':
+        img = cv2.imread(f"{UPLOAD_FOLDER}/coloring/{filename[0]}.{filename[1]}",2)
+        ret, bw_img = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
+        cv2.imwrite(f"website/static/{filename[0]}_colored.{filename[1]}",bw_img)
+
+    if operation == 'gray':
+        image = Image.open(f"{UPLOAD_FOLDER}/coloring/{filename[0]}.{filename[1]}")
+        color_image = image.convert("L")
+        color_image.save(f"website/static/{filename[0]}_colored.{filename[1]}")
+
+    return f"{filename[0]}_colored.{filename[1]}"
