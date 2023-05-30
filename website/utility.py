@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import os
 import argparse
+from os import listdir
 
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg'}
 # openai.api_key = open("OPENAI_API_KEY.txt","r").read()
@@ -113,8 +114,22 @@ def remove_bg(filename):
 
     return f"{filename[0]}_remove_bg.{filename[1]}"
 
-def text_to_handwritten(text):
-    pass
+def imageToPDF(filenames):
+    im1=""
+    count = 0
+    img_list = []
+    print(filenames)
+    for file in filenames:
+        image = Image.open(f"{UPLOAD_FOLDER}/imageToPDF/{file}")
+        if count == 0:
+            im1 = image.convert('RGB')
+        else:
+            img = image.convert('RGB')
+            img_list.append(img)
+        count += 1
+    
+    im1.save(f"website/static/finalPDF_images.pdf",save_all=True,append_images = img_list)
+    return "finalPDF_images.pdf"
 
 
 def resizing(filename,height,width):

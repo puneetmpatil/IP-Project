@@ -1,6 +1,6 @@
 from werkzeug.utils import secure_filename
 import os
-from .utility import allowed_file, compress_image,enhance_image, remove_bg, text_to_handwritten, resizing,coloring,convertFormat
+from .utility import allowed_file, compress_image,enhance_image, remove_bg, imageToPDF, resizing,coloring,convertFormat
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 features = Blueprint("features", __name__)
 
@@ -31,7 +31,7 @@ def ocr():
             flash("Invalid file format", category="error")
     return render_template("ocr.html")
 
-# CAYMANN
+# ! DONE
 @features.route("/conversion", methods=['GET', 'POST'])
 def conversion():
     if request.method == "POST":
@@ -166,20 +166,40 @@ def image_coloring():
     return render_template("imageColoring.html")
 
 # ! EXTRA FEATURES NOT NECCESSARY
-@features.route("/text-to-handwritten", methods=["GET", "POST"])
-def text_to_image():
+@features.route("/image-to-pdf", methods=["GET", "POST"])
+def image_to_pdf():
     if request.method == "POST":
-        prompt = request.form.get("prompt")
-        if prompt:
-            filename = text_to_handwritten(prompt)
-            flash(f"Your image has been processed and is available at <a href='/static/{filename}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
-        else:
-            flash("No prompt given !!!", category='error')
+        if 'file' not in request.files:
+            flash("No file part", category="error")
+            return redirect(request.url)
+        files = request.files.getlist("file")
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if not files:
+            flash('No selected file', category="error")
+        
+        filenames = []
+        for file in files:
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filenames.append(filename)
+                file.save(f"{UPLOAD_FOLDER}/imageToPDF/{filename}")
+            else:
+                flash("Invalid file format", category="error")
 
-    return render_template("textToHandwritten.html")
+        flash("File uploaded successfully", category="success")
+            # Perform image compression
+        print(filenames)
+        newFileName = imageToPDF(filenames)
+        flash(f"Your pdf is available at <a href='/static/{newFileName}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
 
-# ? Increase resolution of low quality images w/o losing quality
+        return redirect(url_for('features.image_to_pdf'))
+
+    return render_template("imageToPDF.html")
+
+
+# ! DONE
 @features.route("/image-enhancement", methods=['GET', 'POST'])
 def image_enhancement():
     if request.method == "POST":
