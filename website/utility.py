@@ -14,6 +14,39 @@ UPLOAD_FOLDER = "website/uploads"
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def convertFormat(filename,operation):
+    match operation:
+        case 'png':
+            image = Image.open(f"{UPLOAD_FOLDER}/conversion/{filename}")
+            filename = filename.split('.')[0]
+            rgb_image = image.convert("RGB")
+            rgb_image.save(f"website/static/{filename}.png",format='png')
+            return f"{filename}.png"
+        case 'jpg':
+            image = Image.open(f"{UPLOAD_FOLDER}/conversion/{filename}")
+            filename = filename.split('.')[0]
+            rgb_image = image.convert("RGB")
+            rgb_image.save(f"website/static/{filename}.jpg",format='jpeg')
+            return f"{filename}.jpg"
+        case 'webp':
+            image = Image.open(f"{UPLOAD_FOLDER}/conversion/{filename}")
+            filename = filename.split('.')[0]
+            rgb_image = image.convert("RGB")
+            rgb_image.save(f"website/static/{filename}.webp",format='webp')
+            return f"{filename}.webp"
+        case 'bmp':
+            image = Image.open(f"{UPLOAD_FOLDER}/conversion/{filename}")
+            filename = filename.split('.')[0]
+            rgb_image = image.convert("RGB")
+            rgb_image.save(f"website/static/{filename}.bmp",format='bmp')
+            return f"{filename}.bmp"
+        
+        case 'gif':
+            image = Image.open(f"{UPLOAD_FOLDER}/conversion/{filename}")
+            filename = filename.split('.')[0]
+            image.save(f"website/static/{filename}.gif",format='gif')
+            return f"{filename}.gif"
+
 def compress_image(filename):
     image = Image.open(f"{UPLOAD_FOLDER}/compression/{filename}")
     filename = filename.split(".")

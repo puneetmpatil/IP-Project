@@ -1,6 +1,6 @@
 from werkzeug.utils import secure_filename
 import os
-from .utility import allowed_file, compress_image,enhance_image, remove_bg, text_to_handwritten, resizing,coloring
+from .utility import allowed_file, compress_image,enhance_image, remove_bg, text_to_handwritten, resizing,coloring,convertFormat
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 features = Blueprint("features", __name__)
 
@@ -35,6 +35,11 @@ def ocr():
 @features.route("/conversion", methods=['GET', 'POST'])
 def conversion():
     if request.method == "POST":
+        operation = request.form.get('operation')
+        if operation == 'Choose a option':
+            flash("Please choose an option", category="error")
+            return redirect(request.url)
+        
         if 'file' not in request.files:
             flash("No file part", category="error")
             return redirect(request.url)
@@ -44,13 +49,19 @@ def conversion():
         if file.filename == '':
             flash('No selected file', category="error")
             return redirect(request.url)
+        
+        if operation == file.filename.split(".")[1].lower():
+            flash("Please choose a different format", category="error")
+            return redirect(request.url)
+
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(f"{UPLOAD_FOLDER}/conversion/{filename}")
             flash("File uploaded successfully", category="success")
 
             # Perform conversion
-
+            newFileName = convertFormat(filename,operation)
+            flash(f"Your image has been processed and is available at <a href='/static/{newFileName}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
             return redirect(url_for('features.conversion', filename=filename))
         else:
@@ -123,7 +134,7 @@ def image_compression():
 
     return render_template("compression.html")
 
-# PUNEET
+# ! DONE
 @features.route("/image-coloring", methods=['GET', 'POST'])
 def image_coloring():
     if request.method == "POST":
