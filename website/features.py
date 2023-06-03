@@ -1,6 +1,6 @@
 from werkzeug.utils import secure_filename
 import os
-from .utility import allowed_file, compress_image,enhance_image, remove_bg, imageToPDF, resizing,coloring,convertFormat
+from .utility import allowed_file,OCR_Function, compress_image,enhance_image, remove_bg, imageToPDF, resizing,coloring,convertFormat
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 features = Blueprint("features", __name__)
 
@@ -25,6 +25,10 @@ def ocr():
             flash("File uploaded successfully", category="success")
 
             # Perform optical character recognition
+            filename=OCR_Function(filename)
+            #return redirect(url_for('features.ocr', filename=filename))
+
+            flash(f"Your text has been processed and is available at <a href='/static/{filename}' target='_blank' class='text-red-500 underline'>here</a>", category="success")
 
             return redirect(url_for('features.ocr', filename=filename))
         else:

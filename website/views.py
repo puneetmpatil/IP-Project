@@ -9,20 +9,20 @@ def home():
     services = [
         {
             "title": "OCR",
-            "description": "Convert an image of text into machine-readable text format."
+            "description": "Transform image text into editable format with OCR."
         },
         {
-            "title": "Crop Images",
-            "description": "Crop and resize your images to the desired dimensions."
+            "title": "Image Coloring",
+            "description": "Add colors to black and white or grayscale images."
         },
         {
-            "title": "Apply Filters",
-            "description": "Convert an image of text into machine-readable text format"
+            "title": "Image Compression",
+            "description": "Reduce file size of images while maintaining quality."
         },
-        {
-            "title": "Add Text",
-            "description": "Insert text and captions to personalize your images."
-        },
+        {          
+            "title": "Remove Background",
+            "description": "Effortlessly remove backgrounds from images."
+        }
     ]
     # db.inventory.insert_one({"c":2})
     # a = db.inventory.find({})
@@ -47,42 +47,43 @@ def services():
     services = [
         {
             "title": "OCR",
-            "description": "Convert an image of text into machine-readable text format.",
+            "description": "Convert image text into machine-readable format.",
             "link": "/services/ocr"
         },
         {
             "title": "Image Resizing",
-            "description": "Crop and resize your images to the desired dimensions.",
-            "link": "services/image-resizing"
+            "description": "Crop and resize images to desired dimensions.",
+            "link": "/services/image-resizing"
         },
         {
             "title": "Image Conversion",
-            "description": "Convert an image of text into machine-readable text format",
-            "link": "services/conversion"
+            "description": "Reduce file size of images while maintaining quality.",
+            "link": "/services/conversion"
         },
         {
             "title": "Image Compression",
-            "description": "Insert text and captions to personalize your images.",
-            "link": "services/image-compression"
+            "description": "Reduce image file size without compromising quality.",
+            "link": "/services/image-compression"
         },
         {
             "title": "Image Coloring",
-            "description": "Convert an image of text into machine-readable text format",
-            "link": "services/image-coloring"
+            "description": "Enhance your images by adding vibrant colors and transforming",
+            "link": "/services/image-coloring"
         },
-        {"title": "Image to PDF",
-            "description": "Crop and resize your images to the desired dimensions.",
-            "link": "services/image-to-pdf"
-         },
+        {
+            "title": "Image to PDF",
+            "description": "Converts images to PDF format, allowing you to create PDF.",
+            "link": "/services/image-to-pdf"
+        },
         {
             "title": "Image Enhancement",
-            "description": "Insert text and captions to personalize your images.",
-            "link": "services/image-enhancement"
+            "description": "Enhance the quality and appearance of images.",
+            "link": "/services/image-enhancement"
         },
         {
             "title": "Remove Background",
-            "description": "Insert text and captions to personalize your images.",
-            "link": "services/remove-background"
+            "description": "Effortlessly remove image backgrounds.",
+            "link": "/services/remove-background"
         }
     ]
     return render_template("services.html", services=services)

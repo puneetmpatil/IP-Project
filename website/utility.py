@@ -1,4 +1,5 @@
 import openai
+import pytesseract
 from PIL import Image, ImageFilter
 from rembg import remove
 import cv2
@@ -200,3 +201,19 @@ def coloring(filename,operation):
         cv2.imwrite(f"website/static/{filename[0]}_colored.{filename[1]}",colorized)
 
     return f"{filename[0]}_colored.{filename[1]}"
+
+def OCR_Function(image_path):
+    
+    image_path = f"{UPLOAD_FOLDER}/ocr/{image_path}"
+    # Open the image using PIL (Python Imaging Library)
+    image = Image.open(image_path)
+    
+    # Convert the image to grayscale
+    image = image.convert('L')
+    
+    # Perform OCR using pytesseract
+    text = pytesseract.image_to_string(image)
+    with open("website/static/newfile.txt", 'w') as file:
+        file.write(text)
+    
+    return "newfile.txt"
