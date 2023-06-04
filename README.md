@@ -20,8 +20,8 @@
 
 #### Team
 
-- [@Kmann22](https://github.com/Kmann22):
-- [@puneetmpatil](https://github.com/puneetmpatil):
+- [@Kmann22](https://github.com/Kmann22): OCR and Frontend
+- [@puneetmpatil](https://github.com/puneetmpatil): Backend and other features
 
 <a name="demo"></a>
 
