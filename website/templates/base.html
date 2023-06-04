@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/static/css/main.css">
     <title>{% block title %}{% endblock %}</title>
     </title>
+    <link rel="icon" href="/static/assets/favicon.png">
+    
 </head>
 
 <body>
@@ -19,7 +21,7 @@
                     <div>
                         <!-- Website Logo -->
                         <a href="/" class="flex items-center py-4 px-2">
-                            <img src="logo.png" alt="Logo" class="h-4 w-4 mr-6">
+                            <img src="/static/assets/Logo.jpg" class="h-4 w-4" style="width: 50px; height: 45px;">
                             <span class="font-semibold text-gray-500 text-lg">Image Editor</span>
                         </a>
                     </div>
@@ -68,6 +70,7 @@
             btn.addEventListener("click", () => {
                 menu.classList.toggle("hidden");
             });
+            
         </script>
     </nav>
     {%block content %}{% endblock %}
