@@ -32,6 +32,14 @@
 #### <ins>Features</ins>
 
 <ol>
+    <li>Optical Character Recognition</li>
+    <li>Image Resizing</li>
+    <li>Conversion to different image formats</li>
+    <li>Background Remover</li>
+    <li>Image Coloring</li>
+    <li>Image Enhancement</li>
+    <li>Image to PDF</li>
+    <li>Image Compression</li>
 </ol>
 
 <a name="technology"></a>
@@ -51,8 +59,7 @@
 <ol>
     <li>
         Clone the repository
-        <code>https://github.com/puneetmpatil/IP-Project.git && cd IP-Project
-        </code>
+        <code>https://github.com/puneetmpatil/IP-Project.git && cd IP-Project</code>
     </li>
     <li>
         Create Virtual Environment<br>
