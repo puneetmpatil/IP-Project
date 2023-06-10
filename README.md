@@ -98,6 +98,8 @@
 <a name="references"></a>
 
 #### <ins>References</ins>
-
 <ul>
+    <li><a href="https://www.youtube.com/watch?v=EXjxlmdHmQc" target="_blank">Remove Background</a></li>
+    <li><a href="https://www.youtube.com/watch?v=gAmskBNz_Vc" target="_blank">Image Coloring</a></li>
+    <li><a href="https://www.youtube.com/watch?v=hVEZYEYctSc" target="_blank">Image Conversion</a></li>
 </ul>
