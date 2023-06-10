@@ -1,6 +1,8 @@
 ## IP Project
 
-<a name="overview"></a>< Enter project description here>
+<a name="overview"></a>
+
+<p>ImageMaster is a versatile image editing website that offers a wide range of features to enhance and manipulate your images. With advanced Optical Character Recognition (OCR), it allows you to extract text from images effortlessly. Resize your images to your desired dimensions and convert them to various formats. Effortlessly remove backgrounds, add vibrant colors, and enhance the overall quality of your images. Transform your images into PDF files and compress them to optimize storage space. Experience the power of image editing with ImageMaster</p>
 
 <a name="content"></a>
 
